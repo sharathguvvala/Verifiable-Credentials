@@ -22,7 +22,7 @@ export default function Home() {
 
   const getRegistration = async () => {
     try {
-      const status = await contract.registered[address]
+      const status = await contract.registered(address)
       console.log(status)
       if(status === true) {
         setIsRegistered(true)
@@ -34,7 +34,7 @@ export default function Home() {
 
   const getVerification = async () => {
     try {
-      const status = await contract.verified[address]
+      const status = await contract.verified(address)
       console.log(status)
       if(status === true) {
         setIsVerified(true)
@@ -46,6 +46,7 @@ export default function Home() {
 
   const getOwner = async() => {
     try {
+      console.log(contract)
       const owner = await contract.owner();
       console.log(owner)
       if(owner.toLowerCase() === address.toLowerCase()) {
@@ -56,19 +57,11 @@ export default function Home() {
     }
   }
 
-  function renderButton() {
-    if(isOwner) {
-      return (
-        <div>
-
-        </div>
-      )
-    }
-  }
-
   useEffect(() => {
     if(ethers.utils.isAddress(address)) {
       getOwner()
+      getRegistration()
+      getVerification()
     }
   }, [])
 

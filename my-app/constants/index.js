@@ -24,6 +24,44 @@ export const CONTRACT_ABI = [
     type: "event",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+    ],
+    name: "checkRegistration",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_address",
+        type: "address",
+      },
+    ],
+    name: "checkVerification",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "didIds",
     outputs: [
@@ -172,4 +210,4 @@ export const CONTRACT_ABI = [
     type: "function",
   },
 ];
-export const CONTRACT_ADDRESS = "0x11a545bcb88669C6DB8E2E54B83d90663D9f29bB";
+export const CONTRACT_ADDRESS = "0x6b8dD9ffc097fba1676C869dE0D3517fd3c5179B";

@@ -25,4 +25,10 @@ contract DIDSSI is Ownable {
         emails[msg.sender] = _email;
         verified[msg.sender] = true;
     }
+    function checkRegistration(address _address) public view returns(bool) {
+        return registered[_address];
+    }
+    function checkVerification(address _address) public view returns(bool) {
+        return registered[_address];
+    }
 }
