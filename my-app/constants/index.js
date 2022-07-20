@@ -5,6 +5,25 @@ export const CONTRACT_ABI = [
     type: "constructor",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "didIds",
     outputs: [
@@ -101,6 +120,26 @@ export const CONTRACT_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "string",
@@ -133,4 +172,4 @@ export const CONTRACT_ABI = [
     type: "function",
   },
 ];
-export const CONTRACT_ADDRESS = "0x3b0F9f88d7a3a25E04f53E9856e59d0435eE4733";
+export const CONTRACT_ADDRESS = "0x11a545bcb88669C6DB8E2E54B83d90663D9f29bB";

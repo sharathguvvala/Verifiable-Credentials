@@ -20,7 +20,7 @@ contract DIDSSI is Ownable {
         registered[msg.sender] = true;
         didIds.increment();
     }
-    function validateEmail(string memory _email) public {
+    function validateEmail(string memory _email) public onlyOwner {
         require(verified[msg.sender] == false, 'already set');
         emails[msg.sender] = _email;
         verified[msg.sender] = true;
