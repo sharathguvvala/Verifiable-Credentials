@@ -15,3 +15,5 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+// smart contract deployed at 0x3b0F9f88d7a3a25E04f53E9856e59d0435eE4733
