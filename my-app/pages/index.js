@@ -2,16 +2,75 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useSigner, useContract } from "wagmi";
-import {CONTRACT_ADDRESS, CONTRACT_ABI} from "../constants/index"
+import { useSigner, useContract, useAccount } from "wagmi";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants/index";
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 
 export default function Home() {
+  const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
     addressOrName: CONTRACT_ADDRESS,
     contractInterface: CONTRACT_ABI,
     signerOrProvider: signer,
   });
+
+  const [isOwner, setIsOwner] = useState(false)
+  const [isRegistered, setIsRegistered] = useState(false)
+  const [isVerified, setIsVerified] = useState(false)
+
+  const getRegistration = async () => {
+    try {
+      const status = await contract.registered[address]
+      console.log(status)
+      if(status === true) {
+        setIsRegistered(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getVerification = async () => {
+    try {
+      const status = await contract.verified[address]
+      console.log(status)
+      if(status === true) {
+        setIsVerified(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getOwner = async() => {
+    try {
+      const owner = await contract.owner();
+      console.log(owner)
+      if(owner.toLowerCase() === address.toLowerCase()) {
+        setIsOwner(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function renderButton() {
+    if(isOwner) {
+      return (
+        <div>
+
+        </div>
+      )
+    }
+  }
+
+  useEffect(() => {
+    if(ethers.utils.isAddress(address)) {
+      getOwner()
+    }
+  }, [])
 
   return (
     <div className={styles.container}>
