@@ -11,24 +11,36 @@ contract DIDSSI is Ownable {
     Counters.Counter public didIds;
     mapping(string => address) public digitalIdentities;
     mapping(address => bool) public registered;
-    mapping(address => string) public emails;
+    mapping(address => Profile) public profiles;
     mapping(address => bool) public verified;
+    struct Profile {
+        string email;
+        string uid;
+        string pan;
+        string license;
+        bool set;
+    }
     constructor() {}
     function register(string memory _name) public {
-        require(registered[msg.sender] == false, 'already reegistered');
+        require(registered[msg.sender] == false, 'already registered');
         digitalIdentities[_name] = msg.sender;
         registered[msg.sender] = true;
         didIds.increment();
     }
-    function validateEmail(string memory _email) public onlyOwner {
+    function addProfile(string memory _email, string memory _uid, string memory _pan, string memory _license) public {
+        require(registered[msg.sender] == true, 'not registered');
         require(verified[msg.sender] == false, 'already set');
-        emails[msg.sender] = _email;
-        verified[msg.sender] = true;
+        profiles[msg.sender] = Profile(_email, _uid, _pan, _license, true);
     }
     function checkRegistration(address _address) public view returns(bool) {
         return registered[_address];
     }
     function checkVerification(address _address) public view returns(bool) {
         return registered[_address];
+    }
+    function verify(address _profile) public onlyOwner {
+        require(profiles[_profile].set == true, 'not set');
+        require(verified[msg.sender] == false, 'already verified');
+        verified[_profile] = true;
     }
 }

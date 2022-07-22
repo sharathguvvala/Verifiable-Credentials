@@ -14,6 +14,6 @@ async function main() {
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
-});
+}); 
 
 // smart contract deployed at 0x6b8dD9ffc097fba1676C869dE0D3517fd3c5179B
