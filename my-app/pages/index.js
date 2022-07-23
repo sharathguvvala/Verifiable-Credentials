@@ -6,6 +6,8 @@ import { useSigner, useContract, useAccount } from "wagmi";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../constants/index";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import { create } from "ipfs-http-client";
+const client = create("https://ipfs.infura.io:5001/api/v0");
 
 export default function Home() {
   const { address } = useAccount();
@@ -19,9 +21,27 @@ export default function Home() {
   const [isOwner, setIsOwner] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [_address, _setAddress] = useState();
-  const [myProfile, setMyProfile] = useState();
-  const [name, setName] = useState();
+  const [_address, _setAddress] = useState("");
+  const [myProfile, setMyProfile] = useState("");
+  const [name, setName] = useState("");
+  const [file, setFile] = useState("");
+  const [imgURL, setImageURL] = useState("");
+  const [email, setEmail] = useState("");
+  const [aadhaar, setAadhaar] = useState("");
+  const [pan, setPan] = useState("");
+
+  const verification = async () => {
+    try {
+      if (email && aadhaar && pan && file) {
+        const added = await client.add(file);
+        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+        setImageURL(url);
+        await contract.addProfile(email, aadhaar, pan, url);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const register = async () => {
     try {
@@ -98,40 +118,6 @@ export default function Home() {
     }
   }, []);
 
-  function renderButton() {
-    if (address && !isRegistered) {
-      return (
-        <div className={styles.card}>
-          <h3>Get a an idetity</h3>
-          <input type="text" placeholder="enter your address" onChange={(e)=>{setName(e.target.value)}} />
-          <button onClick={register}>Get a DID</button>
-        </div>
-      );
-    }
-    if (address && isRegistered && !isVerified) {
-      return (
-        <div className={styles.card}>
-          <h3>Verified Credentials</h3>
-          <div>
-            <input type="email" placeholder="email" />
-            <input type="text" placeholder="aadhaar" />
-            <input type="text" placeholder="pan" />
-            <input type="file" placeholder="driving license" />
-            <button>Veify your identity</button>
-          </div>
-        </div>
-      );
-    }
-    if (address && isRegistered && isVerified) {
-      return (
-        <div>
-          <p>Verified</p>
-          {myProfile}
-        </div>
-      );
-    }
-  }
-
   return (
     <div className={styles.container}>
       <Head>
@@ -157,7 +143,38 @@ export default function Home() {
             />
             <button onClick={getProfile}>Get</button>
           </div>
-          {renderButton()}
+          <div className={styles.card}>
+            <h3>Get a an idetity</h3>
+            <input
+              type="text"
+              placeholder="enter name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+            <button onClick={register}>Get a DID</button>
+          </div>
+          <div className={styles.card}>
+            <h3>Verified Credentials</h3>
+            <div>
+              <input type="email" placeholder="email" onChange={(e) => {setEmail(e.target.value)}} />
+              <input type="text" placeholder="aadhaar" onChange={(e) => {setAadhaar(e.target.value)}} />
+              <input type="text" placeholder="pan" onChange={(e) => {setPan(e.target.value)}} />
+              <input
+                type="file"
+                placeholder="driving license"
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+                style={{ width: "300px" }}
+              />
+              <button onClick={verification()}>Veify your identity</button>
+            </div>
+          </div>
+          <div className={styles.card}>
+            <p>Verified</p>
+            {myProfile}
+          </div>
         </div>
       </main>
     </div>
