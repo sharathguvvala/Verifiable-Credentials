@@ -105,17 +105,17 @@ export const CONTRACT_ABI = [
   {
     inputs: [
       {
-        internalType: "string",
+        internalType: "address",
         name: "",
-        type: "string",
+        type: "address",
       },
     ],
     name: "digitalIdentities",
     outputs: [
       {
-        internalType: "address",
+        internalType: "string",
         name: "",
-        type: "address",
+        type: "string",
       },
     ],
     stateMutability: "view",
@@ -144,6 +144,11 @@ export const CONTRACT_ABI = [
     ],
     name: "profiles",
     outputs: [
+      {
+        internalType: "address",
+        name: "add",
+        type: "address",
+      },
       {
         internalType: "string",
         name: "email",
@@ -258,4 +263,4 @@ export const CONTRACT_ABI = [
     type: "function",
   },
 ];
-export const CONTRACT_ADDRESS = "0x77569Bc4E7E47c8268F29753AEd1Ea7cfC384289";
+export const CONTRACT_ADDRESS = "0x8bC8892aB9e87A35c06d3286f41ff0E3dA386348";
