@@ -151,6 +151,11 @@ export const CONTRACT_ABI = [
       },
       {
         internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
         name: "email",
         type: "string",
       },
@@ -263,4 +268,4 @@ export const CONTRACT_ABI = [
     type: "function",
   },
 ];
-export const CONTRACT_ADDRESS = "0xF82d223E42dEB85774EA5bF53D1c19F661B9030E";
+export const CONTRACT_ADDRESS = "0xdA829533928CAEE541E148b0cfc340039A7FAde0";

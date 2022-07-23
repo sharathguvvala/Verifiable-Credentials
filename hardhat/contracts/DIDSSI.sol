@@ -15,6 +15,7 @@ contract DIDSSI is Ownable {
     mapping(address => bool) public verified;
     struct Profile {
         address add;
+        string name;
         string email;
         string uid;
         string pan;
@@ -31,7 +32,7 @@ contract DIDSSI is Ownable {
     function addProfile(string memory _email, string memory _uid, string memory _pan, string memory _license) public {
         require(registered[msg.sender] == true, 'not registered');
         require(verified[msg.sender] == false, 'already set');
-        profiles[msg.sender] = Profile(msg.sender, _email, _uid, _pan, _license, true);
+        profiles[msg.sender] = Profile(msg.sender, digitalIdentities[msg.sender], _email, _uid, _pan, _license, true);
     }
     function checkRegistration(address _address) public view returns(bool) {
         return registered[_address];
