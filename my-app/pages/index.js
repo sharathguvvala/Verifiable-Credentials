@@ -32,11 +32,16 @@ export default function Home() {
 
   const verification = async () => {
     try {
+      console.log("hi");
       if (email && aadhaar && pan && file) {
         const added = await client.add(file);
         const url = `https://ipfs.infura.io/ipfs/${added.path}`;
         setImageURL(url);
-        await contract.addProfile(email, aadhaar, pan, url);
+        console.log(url);
+        const txn = await contract.addProfile(email, aadhaar, pan, added.path);
+        console.log("Loading...")
+        await txn.wait();
+        console.log("completed")
       }
     } catch (error) {
       console.log(error);
@@ -46,7 +51,10 @@ export default function Home() {
   const register = async () => {
     try {
       if (name) {
-        await contract.register(name);
+        const txn = await contract.register(name);
+        console.log("Loading...")
+        await txn.wait();
+        console.log("completed")
       }
     } catch (error) {
       console.log(error);
@@ -110,12 +118,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (ethers.utils.isAddress(address)) {
-      getOwner();
-      getRegistration();
-      getVerification();
-      getMyProfile();
-    }
+    // if (ethers.utils.isAddress(address)) {
+    //   getOwner();
+    //   getRegistration();
+    //   getVerification();
+    //   getMyProfile();
+    // }
   }, []);
 
   return (
@@ -162,6 +170,7 @@ export default function Home() {
                 placeholder="email"
                 onChange={(e) => {
                   setEmail(e.target.value);
+                  e.preventDefault();
                 }}
               />
               <input
@@ -169,6 +178,7 @@ export default function Home() {
                 placeholder="aadhaar"
                 onChange={(e) => {
                   setAadhaar(e.target.value);
+                  e.preventDefault();
                 }}
               />
               <input
@@ -176,6 +186,7 @@ export default function Home() {
                 placeholder="pan"
                 onChange={(e) => {
                   setPan(e.target.value);
+                  e.preventDefault();
                 }}
               />
               <input
@@ -183,10 +194,11 @@ export default function Home() {
                 placeholder="driving license"
                 onChange={(e) => {
                   setFile(e.target.files[0]);
+                  e.preventDefault();
                 }}
                 style={{ width: "300px" }}
               />
-              <button onClick={verification()}>Veify your identity</button>
+              <button onClick={verification}>Veify your identity</button>
             </div>
           </div>
           <div className={styles.card}>
