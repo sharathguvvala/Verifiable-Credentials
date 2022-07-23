@@ -28,7 +28,7 @@ export default function Home() {
   const [imgURL, setImageURL] = useState("");
   const [email, setEmail] = useState("");
   const [aadhaar, setAadhaar] = useState("");
-  const [pan, setPan] = useState("");
+  const [pan, setPan] = useState("")
 
   const verification = async () => {
     try {
