@@ -19,12 +19,15 @@ export default function Home() {
   const [isOwner, setIsOwner] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [_address, _setAddress] = useState();
+  const [myProfile, setMyProfile] = useState();
   const [name, setName] = useState();
 
-  const getAddress = async () => {
+  const register = async () => {
     try {
-      const profile = await contract.digitalIdentities(name)
-      console.log(profile)
+      if (name) {
+        await contract.register(name);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -32,8 +35,20 @@ export default function Home() {
 
   const getProfile = async () => {
     try {
-      const profile = await contract.digitalIdentities(name)
-      console.log(profile)
+      if (ethers.utils.isAddress(_address)) {
+        const profile = await contract.digitalIdentities(_address);
+        console.log(profile);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getMyProfile = async () => {
+    try {
+      const profile = await contract.profiles(address);
+      console.log(profile);
+      setMyProfile(profile);
     } catch (error) {
       console.log(error);
     }
@@ -79,8 +94,43 @@ export default function Home() {
       getOwner();
       getRegistration();
       getVerification();
+      getMyProfile();
     }
   }, []);
+
+  function renderButton() {
+    if (address && !isRegistered) {
+      return (
+        <div className={styles.card}>
+          <h3>Get a an idetity</h3>
+          <input type="text" placeholder="enter your address" onChange={(e)=>{setName(e.target.value)}} />
+          <button onClick={register}>Get a DID</button>
+        </div>
+      );
+    }
+    if (address && isRegistered && !isVerified) {
+      return (
+        <div className={styles.card}>
+          <h3>Verified Credentials</h3>
+          <div>
+            <input type="email" placeholder="email" />
+            <input type="text" placeholder="aadhaar" />
+            <input type="text" placeholder="pan" />
+            <input type="file" placeholder="driving license" />
+            <button>Veify your identity</button>
+          </div>
+        </div>
+      );
+    }
+    if (address && isRegistered && isVerified) {
+      return (
+        <div>
+          <p>Verified</p>
+          {myProfile}
+        </div>
+      );
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -92,21 +142,22 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Verifiable Credentials</a>
+          Welcome to <a>Verifiable Credentials</a>
         </h1>
         <ConnectButton />
         <div className={styles.grid}>
           <div className={styles.card}>
             <h3>Get Profile</h3>
-            <input type="text" placeholder="enter address" onChange={(e)=>{setName(e.target.value)}} />
-            <button onClick={getAddress} >Get</button>
+            <input
+              type="text"
+              placeholder="enter address"
+              onChange={(e) => {
+                _setAddress(e.target.value);
+              }}
+            />
+            <button onClick={getProfile}>Get</button>
           </div>
-          <div className={styles.card}>
-            <h3>Email</h3>
-          </div>
-          <div className={styles.card}>
-            <h3>Verified Credentials</h3>
-          </div>
+          {renderButton()}
         </div>
       </main>
     </div>
