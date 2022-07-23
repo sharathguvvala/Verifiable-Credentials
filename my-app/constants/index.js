@@ -26,6 +26,34 @@ export const CONTRACT_ABI = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_email",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_uid",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_pan",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_license",
+        type: "string",
+      },
+    ],
+    name: "addProfile",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_address",
         type: "address",
@@ -94,25 +122,6 @@ export const CONTRACT_ABI = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "emails",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "owner",
     outputs: [
@@ -120,6 +129,45 @@ export const CONTRACT_ABI = [
         internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "profiles",
+    outputs: [
+      {
+        internalType: "string",
+        name: "email",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "uid",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "pan",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "license",
+        type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "set",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -180,19 +228,6 @@ export const CONTRACT_ABI = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "_email",
-        type: "string",
-      },
-    ],
-    name: "validateEmail",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "",
         type: "address",
@@ -209,6 +244,18 @@ export const CONTRACT_ABI = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_profile",
+        type: "address",
+      },
+    ],
+    name: "verify",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
 ];
-export const CONTRACT_ADDRESS = "0x6b8dD9ffc097fba1676C869dE0D3517fd3c5179B";
-
+export const CONTRACT_ADDRESS = "0x77569Bc4E7E47c8268F29753AEd1Ea7cfC384289";

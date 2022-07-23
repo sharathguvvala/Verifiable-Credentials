@@ -9,11 +9,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract DIDSSI is Ownable {
     using Counters for Counters.Counter;
     Counters.Counter public didIds;
-    mapping(string => address) public digitalIdentities;
+    mapping(address => string) public digitalIdentities;
     mapping(address => bool) public registered;
     mapping(address => Profile) public profiles;
     mapping(address => bool) public verified;
     struct Profile {
+        address add;
         string email;
         string uid;
         string pan;
@@ -23,14 +24,14 @@ contract DIDSSI is Ownable {
     constructor() {}
     function register(string memory _name) public {
         require(registered[msg.sender] == false, 'already registered');
-        digitalIdentities[_name] = msg.sender;
+        digitalIdentities[msg.sender] =_name;
         registered[msg.sender] = true;
         didIds.increment();
     }
     function addProfile(string memory _email, string memory _uid, string memory _pan, string memory _license) public {
         require(registered[msg.sender] == true, 'not registered');
         require(verified[msg.sender] == false, 'already set');
-        profiles[msg.sender] = Profile(_email, _uid, _pan, _license, true);
+        profiles[msg.sender] = Profile(msg.sender, _email, _uid, _pan, _license, true);
     }
     function checkRegistration(address _address) public view returns(bool) {
         return registered[_address];

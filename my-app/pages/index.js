@@ -16,54 +16,71 @@ export default function Home() {
     signerOrProvider: signer,
   });
 
-  const [isOwner, setIsOwner] = useState(false)
-  const [isRegistered, setIsRegistered] = useState(false)
-  const [isVerified, setIsVerified] = useState(false)
+  const [isOwner, setIsOwner] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [name, setName] = useState();
+
+  const getAddress = async () => {
+    try {
+      const profile = await contract.digitalIdentities(name)
+      console.log(profile)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      const profile = await contract.digitalIdentities(name)
+      console.log(profile)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getRegistration = async () => {
     try {
-      const status = await contract.registered(address)
-      console.log(status)
-      if(status === true) {
-        setIsRegistered(true)
+      const status = await contract.registered(address);
+      console.log(status);
+      if (status === true) {
+        setIsRegistered(true);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const getVerification = async () => {
     try {
-      const status = await contract.verified(address)
-      console.log(status)
-      if(status === true) {
-        setIsVerified(true)
+      const status = await contract.verified(address);
+      console.log(status);
+      if (status === true) {
+        setIsVerified(true);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const getOwner = async() => {
+  const getOwner = async () => {
     try {
-      console.log(contract)
       const owner = await contract.owner();
-      console.log(owner)
-      if(owner.toLowerCase() === address.toLowerCase()) {
-        setIsOwner(true)
+      if (owner.toLowerCase() === address.toLowerCase()) {
+        setIsOwner(true);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    if(ethers.utils.isAddress(address)) {
-      getOwner()
-      getRegistration()
-      getVerification()
+    if (ethers.utils.isAddress(address)) {
+      getOwner();
+      getRegistration();
+      getVerification();
     }
-  }, [])
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -80,7 +97,9 @@ export default function Home() {
         <ConnectButton />
         <div className={styles.grid}>
           <div className={styles.card}>
-            <h3>DID's</h3>
+            <h3>Get Profile</h3>
+            <input type="text" placeholder="enter address" onChange={(e)=>{setName(e.target.value)}} />
+            <button onClick={getAddress} >Get</button>
           </div>
           <div className={styles.card}>
             <h3>Email</h3>
