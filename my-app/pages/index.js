@@ -28,7 +28,7 @@ export default function Home() {
   const [imgURL, setImageURL] = useState("");
   const [email, setEmail] = useState("");
   const [aadhaar, setAadhaar] = useState("");
-  const [pan, setPan] = useState("")
+  const [pan, setPan] = useState("");
 
   const verification = async () => {
     try {
@@ -157,9 +157,27 @@ export default function Home() {
           <div className={styles.card}>
             <h3>Verified Credentials</h3>
             <div>
-              <input type="email" placeholder="email" onChange={(e) => {setEmail(e.target.value)}} />
-              <input type="text" placeholder="aadhaar" onChange={(e) => {setAadhaar(e.target.value)}} />
-              <input type="text" placeholder="pan" onChange={(e) => {setPan(e.target.value)}} />
+              <input
+                type="email"
+                placeholder="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="aadhaar"
+                onChange={(e) => {
+                  setAadhaar(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="pan"
+                onChange={(e) => {
+                  setPan(e.target.value);
+                }}
+              />
               <input
                 type="file"
                 placeholder="driving license"
