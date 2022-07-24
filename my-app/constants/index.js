@@ -1,271 +1,271 @@
 export const CONTRACT_ABI = [
   {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
       },
       {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
-    name: "OwnershipTransferred",
-    type: "event",
+    "name": "OwnershipTransferred",
+    "type": "event"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "_email",
-        type: "string",
+        "internalType": "string",
+        "name": "_email",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "_uid",
-        type: "string",
+        "internalType": "string",
+        "name": "_uid",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "_pan",
-        type: "string",
+        "internalType": "string",
+        "name": "_pan",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "_license",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "_license",
+        "type": "string"
+      }
     ],
-    name: "addProfile",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "addProfile",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
     ],
-    name: "checkRegistration",
-    outputs: [
+    "name": "checkRegistration",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_address",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
     ],
-    name: "checkVerification",
-    outputs: [
+    "name": "checkVerification",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "didIds",
-    outputs: [
+    "inputs": [],
+    "name": "didIds",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "_value",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "digitalIdentities",
-    outputs: [
+    "name": "digitalIdentities",
+    "outputs": [
       {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "owner",
-    outputs: [
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "profiles",
-    outputs: [
+    "name": "profiles",
+    "outputs": [
       {
-        internalType: "address",
-        name: "add",
-        type: "address",
+        "internalType": "address",
+        "name": "add",
+        "type": "address"
       },
       {
-        internalType: "string",
-        name: "name",
-        type: "string",
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "email",
-        type: "string",
+        "internalType": "string",
+        "name": "email",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "uid",
-        type: "string",
+        "internalType": "string",
+        "name": "uid",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "pan",
-        type: "string",
+        "internalType": "string",
+        "name": "pan",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "license",
-        type: "string",
+        "internalType": "string",
+        "name": "license",
+        "type": "string"
       },
       {
-        internalType: "bool",
-        name: "set",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "set",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "_name",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
     ],
-    name: "register",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "register",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "registered",
-    outputs: [
+    "name": "registered",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "verified",
-    outputs: [
+    "name": "verified",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_profile",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_profile",
+        "type": "address"
+      }
     ],
-    name: "verify",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
+    "name": "verify",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ];
-export const CONTRACT_ADDRESS = "0xdA829533928CAEE541E148b0cfc340039A7FAde0";
+export const CONTRACT_ADDRESS = "0xA23bB39a3195B66ca2cc7c678F6A203400AeF032";

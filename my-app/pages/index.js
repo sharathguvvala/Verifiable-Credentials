@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { create } from "ipfs-http-client";
 const client = create("https://ipfs.infura.io:5001/api/v0");
+var validator = require("aadhaar-validator");
 
 export default function Home() {
   const { address } = useAccount();
@@ -25,7 +26,6 @@ export default function Home() {
   const [myProfile, setMyProfile] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
-  const [imgURL, setImageURL] = useState("");
   const [email, setEmail] = useState("");
   const [aadhaar, setAadhaar] = useState("");
   const [pan, setPan] = useState("");
@@ -34,14 +34,23 @@ export default function Home() {
     try {
       console.log("hi");
       if (email && aadhaar && pan && file) {
-        const added = await client.add(file);
-        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-        setImageURL(url);
-        console.log(url);
-        const txn = await contract.addProfile(email, aadhaar, pan, added.path);
-        console.log("Loading...")
-        await txn.wait();
-        console.log("completed")
+        if (validator.isValidNumber(aadhaar)) {
+          const added = await client.add(file);
+          const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+          console.log(url);
+          const txn = await contract.addProfile(
+            email,
+            aadhaar,
+            pan,
+            added.path
+          );
+          console.log(txn);
+          console.log("Loading...");
+          await txn.wait();
+          console.log("completed");
+        } else {
+          console.log("not valid aadhaar");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -52,9 +61,9 @@ export default function Home() {
     try {
       if (name) {
         const txn = await contract.register(name);
-        console.log("Loading...")
+        console.log("Loading...");
         await txn.wait();
-        console.log("completed")
+        console.log("completed");
       }
     } catch (error) {
       console.log(error);
@@ -116,15 +125,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    // if (ethers.utils.isAddress(address)) {
-    //   getOwner();
-    //   getRegistration();
-    //   getVerification();
-    //   getMyProfile();
-    // }
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -203,7 +203,24 @@ export default function Home() {
           </div>
           <div className={styles.card}>
             <p>Verified</p>
-            {myProfile}
+            <button onClick={getMyProfile}>Get my profile</button>
+            <br />
+            {myProfile ? (
+              <div>
+                {myProfile.add.slice(0, 5)}...
+                {myProfile.add.slice(myProfile.add.length - 4)}
+                <br />
+                {myProfile.email}
+                <br />
+                {myProfile.uid}
+                <br />
+                {myProfile.pan}
+                <br />
+                {myProfile.license}
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       </main>
