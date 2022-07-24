@@ -30,8 +30,9 @@ contract DIDSSI is Ownable {
         didIds.increment();
     }
     function addProfile(string memory _email, string memory _uid, string memory _pan, string memory _license) public {
-        require(registered[msg.sender] == true, 'not registered');
-        require(verified[msg.sender] == false, 'already set');
+        // require(registered[msg.sender] == true, 'not registered');
+        // require(verified[msg.sender] == false, 'already set');
+        // require(profiles[msg.sender].set == false, 'already set');
         profiles[msg.sender] = Profile(msg.sender, digitalIdentities[msg.sender], _email, _uid, _pan, _license, true);
     }
     function checkRegistration(address _address) public view returns(bool) {
