@@ -34,7 +34,7 @@ export default function Home() {
     try {
       console.log("hi");
       if (email && aadhaar && pan && file) {
-        if (validator.isValidNumber(aadhaar)) {
+        if (validator.isValidVID(aadhaar)) {
           const added = await client.add(file);
           const url = `https://ipfs.infura.io/ipfs/${added.path}`;
           console.log(url);
