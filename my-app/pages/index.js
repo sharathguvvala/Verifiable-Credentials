@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { create } from "ipfs-http-client";
 const client = create("https://ipfs.infura.io:5001/api/v0");
-var validator = require("aadhaar-validator");
+import { Validator } from 'format-utils';
 
 export default function Home() {
   const { address } = useAccount();
@@ -23,18 +23,20 @@ export default function Home() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [_address, _setAddress] = useState("");
+  const [profile, setProfile] = useState("");
   const [myProfile, setMyProfile] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
   const [email, setEmail] = useState("");
   const [aadhaar, setAadhaar] = useState("");
   const [pan, setPan] = useState("");
+  const [url, setUrl] = useState("");
 
   const verification = async () => {
     try {
       console.log("hi");
       if (email && aadhaar && pan && file) {
-        if (validator.isValidVID(aadhaar)) {
+        if (Validator.aadhaar(aadhaar) && Validator.pan(pan)) {
           const added = await client.add(file);
           const url = `https://ipfs.infura.io/ipfs/${added.path}`;
           console.log(url);
@@ -42,14 +44,14 @@ export default function Home() {
             email,
             aadhaar,
             pan,
-            added.path
+            url
           );
           console.log(txn);
           console.log("Loading...");
           await txn.wait();
           console.log("completed");
         } else {
-          console.log("not valid aadhaar");
+          console.log("not valid aadhaar or pan");
         }
       }
     } catch (error) {
@@ -73,8 +75,9 @@ export default function Home() {
   const getProfile = async () => {
     try {
       if (ethers.utils.isAddress(_address)) {
-        const profile = await contract.digitalIdentities(_address);
+        const profile = await contract.profiles(_address);
         console.log(profile);
+        setProfile(profile);
       }
     } catch (error) {
       console.log(error);
@@ -150,6 +153,23 @@ export default function Home() {
               }}
             />
             <button onClick={getProfile}>Get</button>
+            <br />
+            {profile ? (
+              <div>
+                {profile.add.slice(0, 5)}...
+                {profile.add.slice(profile.add.length - 4)}
+                <br />
+                {profile.email}
+                <br />
+                {profile.uid}
+                <br />
+                {profile.pan}
+                <br />
+                <img src={profile.license} width="100px"/>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
           <div className={styles.card}>
             <h3>Get a an idetity</h3>
